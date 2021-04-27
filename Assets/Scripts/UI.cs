@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class UI : MonoBehaviour
 {
     public GameObject _pauseUI;
-    public Movement isDead;
+    public GameObject _deadUI;
+    public Movement _movement;
         
     // Start is called before the first frame update
 
@@ -15,6 +16,8 @@ public class UI : MonoBehaviour
     {
         _pauseUI.GetComponent<GameObject>();
         _pauseUI.SetActive(false);
+        _deadUI.GetComponent<GameObject>();
+        _deadUI.SetActive(false);
     }
 
     void Start()
@@ -25,7 +28,10 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (_movement.isDead)
+        {
+            DeadUI();
+        }
     }
 
     public void Pause()
@@ -49,5 +55,16 @@ public class UI : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void DeadUI()
+    {
+        _deadUI.SetActive(true);
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(1);
+        Time.timeScale = 1f;
     }
 }
